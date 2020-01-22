@@ -1,0 +1,22 @@
+{
+  "name": "youtube-dl-electron",
+  "version": "0.1.0",
+  "description": "Electron version of Youtube DL CLI",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "youtube-dl"
+  ],
+  "author": "Larry Cherry",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^7.1.9"
+  },
+  "dependencies": {
+    "youtube-dl": "^3.0.0"
+  }
+}
