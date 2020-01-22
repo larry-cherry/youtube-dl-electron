@@ -17,6 +17,7 @@
     "electron": "^7.1.9"
   },
   "dependencies": {
+    "bootstrap": "4.4.1",
     "youtube-dl": "^3.0.0"
   }
 }
