@@ -9,6 +9,31 @@
     <link rel="stylesheet" href="style.css"/>
     <script>
       var $ = require('jquery')
+      var {remote} = require('electron');
+      var dialog = remote.dialog;
+      var WIN = remote.getCurrentWindow();
+      var { dialog } = require('electron').remote
+      let options = {
+        //Placeholder 1
+        title: "Untitled",
+        
+        buttonLabel : "Save",
+        
+        filters : [
+          {
+            name: 'Video',
+            extensions: [ 'mp4' ]
+          },
+          {
+            name: 'Audio',
+            extensions: [ 'mp3' ]
+          },
+          {
+            name: 'All Files',
+            extensions: [ '*' ]
+          }
+        ]
+      }
     </script>
     <script script-src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script script-src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -31,6 +56,9 @@
             <h1 id='title'>Title</h1>
             <img id='thumbnail'/>
             <p id='description'>description</p>
+            <button id='download' class='btn btn-default'>
+              Download
+            </button>
           </div>
       </div>
       <!-- Content here -->
@@ -44,14 +72,24 @@
           youtubevideo = new Video(url);
           youtubevideo.getInfo().then(response => {
             const {thumbnail, title, description} = response
+            options.title = title;
             $('#thumbnail').attr('src', thumbnail);
             $('#title').text(title);
             $('#description').text(description)
             //debugger;
-            //youtubevideo.download();
           });
         }
         $('#btn').click(getvideo);
+
+        function download(){
+          // Information on dialog object
+          // https://www.brainbell.com/javascript/show-save-dialog.html
+          dialog.showSaveDialog(WIN, options).then((res)=>{
+            // debugger;
+            youtubevideo.download(res.filePath);
+          })
+        }
+        $('#download').click(download);
       });
     </script>
   </body>

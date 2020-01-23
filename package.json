@@ -4,7 +4,7 @@
   "description": "Electron version of Youtube DL CLI",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "NODE_ENV=dev electron .",
     "dev": "nodemon electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
