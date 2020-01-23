@@ -6,17 +6,53 @@
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"/>
+    <script>
+      var $ = require('jquery')
+    </script>
     <script script-src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script script-src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script script-src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class='col'>
+          <div class="input-group mb-3">
+            <input id='video-url' type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button id='btn' class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+          <div id='video'>
+            <h1 id='title'>Title</h1>
+            <img id='thumbnail'/>
+            <p id='description'>description</p>
+          </div>
+      </div>
+      <!-- Content here -->
+    </div>
     <script>
-      const video = require('./Video').default
+      const Video = require('./Video').default
+      var youtubevideo;
+      $( document ).ready(function(){
+        function getvideo(){
+          var url = $('#video-url').val();
+          youtubevideo = new Video(url);
+          youtubevideo.getInfo().then(response => {
+            const {thumbnail, title, description} = response
+            $('#thumbnail').attr('src', thumbnail);
+            $('#title').text(title);
+            $('#description').text(description)
+            //debugger;
+            //youtubevideo.download();
+          });
+        }
+        $('#btn').click(getvideo);
+      });
     </script>
   </body>
 </html>

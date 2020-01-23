@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "dev": "nodemon electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,10 +15,13 @@
   "author": "Larry Cherry",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^7.1.9"
+    "electron": "^7.1.9",
+    "electron-reload": "^1.5.0"
   },
   "dependencies": {
     "bootstrap": "4.4.1",
+    "jquery": "^3.4.1",
+    "nodemon": "^2.0.2",
     "youtube-dl": "^3.0.0"
   }
 }

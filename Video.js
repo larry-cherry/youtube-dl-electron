@@ -1,6 +1,7 @@
 const youtubedl = require('youtube-dl');
 const fs = require('fs');
-
+const os = require('os');
+const process = require('process');
 class Video {
     constructor(url = ''){
         this.url = url;
@@ -12,14 +13,27 @@ class Video {
     }
 
     getInfo(){
-        youtubedl.getInfo(this.url, [], (err, info) => {
-            if (err) throw err;
-            this.info = info;
+        return new Promise((resolve, reject) => {
+            youtubedl.getInfo(this.url, [], (err, info) => {
+                if (err) reject(err);
+                this.info = info;
+                resolve(info);
+            });
         });
     };
 
-    download(){
-        youtubedl(this.url).pipe(fs.createWriteStream('test.mp4'));
+    download(folder = null){
+        if(folder === undefined || folder === null){
+            const home = process.env.HOME
+            const downloadDirectory = home + '/Downloads';
+            let file = this.info._filename;
+            file = file.replace(/\s/g,'');
+            const filepath = `${downloadDirectory}/${file}`;
+            // debugger
+            fs.realpath(filepath, (err, resolvedPath)=>{
+                youtubedl(this.url).pipe(fs.createWriteStream(file));
+            })
+        }
     };
 }
 
