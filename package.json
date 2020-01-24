@@ -3,10 +3,18 @@
   "version": "0.1.0",
   "description": "Electron version of Youtube DL CLI",
   "main": "main.js",
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
   "scripts": {
     "start": "NODE_ENV=dev electron .",
     "dev": "nodemon electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "keywords": [
     "electron",
@@ -16,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^7.1.9",
+    "electron-builder": "^22.2.0",
     "electron-reload": "^1.5.0"
   },
   "dependencies": {
