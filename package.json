@@ -19,7 +19,7 @@
   "author": "Larry Cherry",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^7.1.9",
+    "electron": "^11.5.0",
     "electron-packager": "^15.1.0",
     "electron-reload": "^1.5.0"
   },
